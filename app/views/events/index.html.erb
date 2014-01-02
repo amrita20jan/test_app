@@ -1,0 +1,22 @@
+<h1>LIST OF DIASPARK EVENTS</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name Of Events</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%=link_to event.name, event %></td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<br><%= link_to 'New Event', new_event_path %>

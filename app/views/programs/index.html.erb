@@ -1,0 +1,25 @@
+<h1>LIST OF DIASPARK PROGRAMS</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name Of Programs</th>
+      
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @programs.each do |program| %>
+      <tr>
+        <td><%= link_to program.name, program %></td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+<br><%= link_to 'New Program', new_program_path %>
+
