@@ -10,8 +10,26 @@
   <%= @event.description %>
 </p>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
-<%= link_to 'Show', @comment %> |
-<%= render :partial => "comments/form"%>
-<%= @comment= Event.first.comments.all.map{|e| e.description}%>
+<%= form_for(Comment.new) do |f| %>
+
+ <div class="field" >
+    <%= f.label :comments %><br>
+    <%= f.text_area :description %>
+   <%= f.hidden_field :event_id, :value => @event.id %>
+ </div>
+  
+  <div class="actions">
+    <%= button_to "Create comment" ,:action=>"create", :controller=>"comments"  %>
+  </div>
+
+<% end %>
+
+<fieldset>
+<h2><u>Comments</u></h2>
+
+
+<% @c.map do |c|  %>
+	<br>
+	<%= c.description%>
+<%end%>
+</fieldset>

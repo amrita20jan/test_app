@@ -12,9 +12,7 @@ class CommentsController < ApplicationController
   def show
      
 
-
-
-  end
+ end
 
   # GET /comments/new
   def new
@@ -30,21 +28,28 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     
-    @comment = Comment.new(comment_params)
-    
-    @comment= Program.first.comments.create(:program_id=>params[:id],:description=>params["comment"]["description"])
-
-    @comment= Event.first.comments.create(:event_id=>params[:id],:description=>params["comment"]["description"])
-
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comments, notice: 'Comment was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @comment }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+      @comment = Comment.new(comment_params)
+    # @comment= @event.comments.create(:event_id=>params[:id],:description=>params["comment"]["description"]) 
+     if params["comment"]["program_id"].present?                                                                                                                                                                                
+        @c=Program.find(params["comment"]["program_id"]).comments.all
+        @comment= Program.find(params["comment"]["program_id"]).comments.create(:description=>params["comment"]["description"])
+        @program=Program.find(params["comment"]["program_id"])
+        redirect_to @program
+    else
+       @comment= Event.find(params["comment"]["event_id"]).comments.create(:description=>params["comment"]["description"])
+       @c=Event.find(params["comment"]["event_id"]).comments.all
+       @event=Event.find(params["comment"]["event_id"])
+        redirect_to @event
     end
+    #     respond_to do |format|
+    #   if @comment.save
+    #     format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
+    #     format.json { render action: 'show', status: :created, location: @comment }
+    #   else
+    #     format.html { render action: 'new' }
+    #     format.json { render json: @comment.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /comments/1

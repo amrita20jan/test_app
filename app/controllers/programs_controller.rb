@@ -10,6 +10,11 @@ class ProgramsController < ApplicationController
   # GET /programs/1
   # GET /programs/1.json
   def show
+      #@comments= @program.comments.create(:description=>params["comment"]["description"])
+      #@comment= Program.first.comments.create(:program_id=>params[:id],:description=>params["comment"]["description"])
+      #@comments= @program.comments.all
+       @c=@program.comments.all
+    
   end
 
   # GET /programs/new

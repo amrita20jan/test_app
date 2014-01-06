@@ -10,7 +10,12 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+          #@comment= @event.comments.create(:description=>params["comment"]["description"])
+       @c=@event.comments.all
+            
+        #@comment= @event.comments.all.map{|e| e.description}
   end
+
 
   # GET /events/new
   def new

@@ -10,8 +10,25 @@
   <%= @program.description %>
 </p>
 
-<%= link_to 'Edit', edit_program_path(@program) %> |
-<%= link_to 'Back', programs_path %>
-<%= link_to 'Show', @comment %> |
- <%= render :partial => "comments/form" %>
-<%= @comment= Program.first.comments.all.map{|e| e.description}%>
+<%= form_for(Comment.new) do |f| %>
+
+ <div class="field" >
+    <%= f.label :comments %><br>
+    <%= f.text_area :description %>
+   <%= f.hidden_field :program_id, :value => @program.id %>
+  </div>
+  
+  <div class="actions">
+    <%= button_to "Create comment" ,:action=>"create", :controller=>"comments"  %>
+  </div> 
+  <%end%>
+
+<fieldset>
+<h2><u>Comments</u></h2>
+
+<% @c.map do |c|  %>
+	<br>
+	<%= c.description%>
+<%end%>
+</fieldset
+
